@@ -13134,11 +13134,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Api\\Persons.Api.csproj",
+      "projectUniqueName": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Api\\Persons.Api.csproj",
       "projectName": "Persons.Api",
-      "projectPath": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Api\\Persons.Api.csproj",
+      "projectPath": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Api\\Persons.Api.csproj",
       "packagesPath": "C:\\Users\\Ika\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Api\\obj\\",
+      "outputPath": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13157,11 +13157,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Core\\Persons.Core.csproj": {
-              "projectPath": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Core\\Persons.Core.csproj"
+            "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Core\\Persons.Core.csproj": {
+              "projectPath": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Core\\Persons.Core.csproj"
             },
-            "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Data\\Persons.Data.csproj": {
-              "projectPath": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Data\\Persons.Data.csproj"
+            "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Data\\Persons.Data.csproj": {
+              "projectPath": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Data\\Persons.Data.csproj"
             }
           }
         }

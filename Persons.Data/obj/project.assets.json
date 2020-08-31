@@ -3882,11 +3882,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Data\\Persons.Data.csproj",
+      "projectUniqueName": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Data\\Persons.Data.csproj",
       "projectName": "Persons.Data",
-      "projectPath": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Data\\Persons.Data.csproj",
+      "projectPath": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Data\\Persons.Data.csproj",
       "packagesPath": "C:\\Users\\Ika\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ika\\source\\repos\\Persons.Api\\Persons.Data\\obj\\",
+      "outputPath": "C:\\Users\\Ika\\Documents\\GitHub\\.Net-Core-Api-Persons\\Persons.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
