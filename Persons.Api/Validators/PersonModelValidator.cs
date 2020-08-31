@@ -21,31 +21,37 @@ namespace Persons.Api.Validators
             RuleFor(person => person.NameEng)
                .Cascade(CascadeMode.Stop)
               .NotNull().WithMessage("{PropertyName} is  empty")
-              .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid");
+              .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid")
+              .Matches("^[A-Za-z]*$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(person => person.Surname)
                 .Cascade(CascadeMode.Stop)
              .NotNull().WithMessage("{PropertyName} is  empty")
              .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid");
+            
 
             RuleFor(person => person.SurnameEng)
                 .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage("{PropertyName} is  empty")
-            .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid");
+            .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid")
+             .Matches("^[A-Za-z ]*$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(person => person.PrivateNumber)
                 .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage("{PropertyName} is  empty")
-            .Length(11, 11).WithMessage(" {PropertyName} must Contain 11 chars");
+            .Length(11, 11).WithMessage(" {PropertyName} must Contain 11 chars")
+             .Matches("^([0-9])*$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(person => person.MobileNumber)
                 .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage("{PropertyName} is  empty")
-            .Length(12).WithMessage("Maximum Length of chars in  {PropertyName} is 12");
+            .MaximumLength(12).WithMessage("Maximum Length of chars in  {PropertyName} is 12")
+            .Matches("^([0-9])*$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(person => person.PhoneNumber)
                 .Cascade(CascadeMode.Stop)
-            .Length(12).WithMessage("Maximum Length of chars in  {PropertyName} is 12");
+            .MaximumLength(12).WithMessage("Maximum Length of chars in  {PropertyName} is 12")
+            .Matches("^[0-9]$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(person => person.BirthDate)
                 .Cascade(CascadeMode.Stop)
@@ -70,6 +76,45 @@ namespace Persons.Api.Validators
                 return true;
             }
             return false;
+        }
+    }
+
+    public class PersonAddressModelValidator : AbstractValidator<AddressesModel>
+    {
+        public PersonAddressModelValidator()
+        {
+            RuleFor(address => address.Country)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage("{PropertyName} is  empty")
+               .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid")
+               .Matches("^[A-Za-z]*$").WithMessage("{PropertyName} Invalid");
+
+            RuleFor(address => address.City)
+             .Cascade(CascadeMode.Stop)
+             .NotNull().WithMessage("{PropertyName} is  empty")
+             .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid")
+             .Matches("^[A-Za-z]*$").WithMessage("{PropertyName} Invalid");
+
+            RuleFor(address => address.Street)
+              .Cascade(CascadeMode.Stop)
+              .NotNull().WithMessage("{PropertyName} is  empty")
+              .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid");     
+        }
+    }
+
+    public class PersonFileModelValidator : AbstractValidator<FilesModel>
+    {
+        public PersonFileModelValidator()
+        {
+            RuleFor(file => file.Name)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage("{PropertyName} is  empty")
+               .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid");
+
+            RuleFor(address => address.Url)
+             .Cascade(CascadeMode.Stop)
+             .NotNull().WithMessage("{PropertyName} is  empty");
+
         }
     }
 }

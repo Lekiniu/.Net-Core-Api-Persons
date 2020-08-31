@@ -16,6 +16,7 @@ namespace Persons.Data.Entities
         public DbSet<RelatedPersons> RelatedPersons { get; set; }
         public DbSet<Addresses> Addresses { get; set; }
         public DbSet<Files> Files { get; set; }
+        public DbSet<PersonTypes> PersonTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

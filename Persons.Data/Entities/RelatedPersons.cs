@@ -12,19 +12,21 @@ namespace Persons.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RelateId { get; set; }
 
-        [MaxLength(15)]
-        [Required]
-        public string Type { get; set; }
 
-        public int? PersonId { get; set; }
+        public int? PersonTypeId { get; set; }
 
-        public int? RelatedPersonId { get; set; }
+        public int PersonId { get; set; }
+
+        public int RelatedPersonId { get; set; }
 
         [ForeignKey("PersonId")]
         public virtual Persons Person { get; set; }
 
         [ForeignKey("RelatedPersonId")]
         public virtual Persons RelatedPerson { get; set; }
+
+        [ForeignKey("PersonTypeId")]
+        public virtual PersonTypes PersonType { get; set; }
 
     }
 }

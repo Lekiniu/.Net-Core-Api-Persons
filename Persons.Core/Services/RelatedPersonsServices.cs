@@ -30,15 +30,15 @@ namespace Persons.Core.Services
         {
             return _context.RelatedPersons.FirstOrDefault(e => e.PersonId == personId && e.RelatedPersonId == relativePersonId) == null ? true : false ;
          }
-    
+
 
         public async Task<PersonsModel> AddRelatedPersonAsync(int personId, string type, int relativePersonId)
         {
             var person = await _context.Persons.
                 FirstOrDefaultAsync(e => e.PersonId == personId);
 
-                await SaveRelatedPerson( personId, type, relativePersonId);
-         
+            //await SaveRelatedPerson(personId, type, relativePersonId);
+
 
             return Mapping.Mapper.Map<PersonsModel>(person);
         }
@@ -69,32 +69,32 @@ namespace Persons.Core.Services
                 Name= m.Name,
                 Surname= m.Surname,
                 PrivateNumber = m.PrivateNumber,
-                Type = getPersonType(personId, m.PersonId)
+                //Type = getPersonType(personId, m.PersonId)
             });
 
             //var model = Mapping.Mapper.Map<List<PersonsModel>>(RelatedPersonList);
             return result;
         }
 
-        private  string getPersonType(int personId, int relatedPersonId)
-        {
-            var model= _context.RelatedPersons.
-             FirstOrDefault(e => e.PersonId == personId && e.RelatedPersonId == relatedPersonId);
+        //private  string getPersonType(int personId, int relatedPersonId)
+        //{
+        //    var model= _context.RelatedPersons.
+        //     FirstOrDefault(e => e.PersonId == personId && e.RelatedPersonId == relatedPersonId);
 
-            return model.Type;
-        }
+        //    return model.Type;
+        //}
 
-        private async Task SaveRelatedPerson(int personId, string type, int relativePersonId)
-        {
-            await _context.RelatedPersons.AddAsync(
-              new RelatedPersons
-              {
-                  RelatedPersonId = relativePersonId,
-                  PersonId = personId,
-                  Type = type
-              });
-            await _context.SaveChangesAsync();
-        }
+        //private async Task SaveRelatedPerson(int personId, string type, int relativePersonId)
+        //{
+        //    await _context.RelatedPersons.AddAsync(
+        //      new RelatedPersons
+        //      {
+        //          RelatedPersonId = relativePersonId,
+        //          PersonId = personId,
+        //          Type = type
+        //      });
+        //    await _context.SaveChangesAsync();
+        //}
 
     }
 

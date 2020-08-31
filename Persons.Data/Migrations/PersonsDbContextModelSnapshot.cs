@@ -63,6 +63,21 @@ namespace Persons.Data.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("Persons.Data.Entities.PersonTypes", b =>
+                {
+                    b.Property<int>("PersonTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.HasKey("PersonTypeId");
+
+                    b.ToTable("PersonTypes");
+                });
+
             modelBuilder.Entity("Persons.Data.Entities.Persons", b =>
                 {
                     b.Property<int>("PersonId")
@@ -115,17 +130,17 @@ namespace Persons.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PersonId");
+                    b.Property<int>("PersonId");
 
-                    b.Property<int?>("RelatedPersonId");
+                    b.Property<int?>("PersonTypeId");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                    b.Property<int>("RelatedPersonId");
 
                     b.HasKey("RelateId");
 
                     b.HasIndex("PersonId");
+
+                    b.HasIndex("PersonTypeId");
 
                     b.HasIndex("RelatedPersonId");
 
@@ -152,7 +167,12 @@ namespace Persons.Data.Migrations
                 {
                     b.HasOne("Persons.Data.Entities.Persons", "Person")
                         .WithMany("PersonsGroup")
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Persons.Data.Entities.PersonTypes", "PersonType")
+                        .WithMany("RelatedPersons")
+                        .HasForeignKey("PersonTypeId");
 
                     b.HasOne("Persons.Data.Entities.Persons", "RelatedPerson")
                         .WithMany("RelatedPersons")

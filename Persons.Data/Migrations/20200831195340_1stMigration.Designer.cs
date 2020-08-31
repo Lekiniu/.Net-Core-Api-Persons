@@ -10,8 +10,8 @@ using Persons.Data.Entities;
 namespace Persons.Data.Migrations
 {
     [DbContext(typeof(PersonsDbContext))]
-    [Migration("20200829212605_3rdMigration")]
-    partial class _3rdMigration
+    [Migration("20200831195340_1stMigration")]
+    partial class _1stMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,21 @@ namespace Persons.Data.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("Persons.Data.Entities.PersonTypes", b =>
+                {
+                    b.Property<int>("PersonTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.HasKey("PersonTypeId");
+
+                    b.ToTable("PersonTypes");
+                });
+
             modelBuilder.Entity("Persons.Data.Entities.Persons", b =>
                 {
                     b.Property<int>("PersonId")
@@ -72,6 +87,8 @@ namespace Persons.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("AddressId");
+
+                    b.Property<DateTime>("BirthDate");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -111,17 +128,23 @@ namespace Persons.Data.Migrations
 
             modelBuilder.Entity("Persons.Data.Entities.RelatedPersons", b =>
                 {
-                    b.Property<int?>("RelatedPersonId");
+                    b.Property<int>("RelateId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PersonId");
+                    b.Property<int>("PersonId");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                    b.Property<int?>("PersonTypeId");
 
-                    b.HasKey("RelatedPersonId", "PersonId");
+                    b.Property<int>("RelatedPersonId");
+
+                    b.HasKey("RelateId");
 
                     b.HasIndex("PersonId");
+
+                    b.HasIndex("PersonTypeId");
+
+                    b.HasIndex("RelatedPersonId");
 
                     b.ToTable("RelatedPersons");
                 });
@@ -145,14 +168,18 @@ namespace Persons.Data.Migrations
             modelBuilder.Entity("Persons.Data.Entities.RelatedPersons", b =>
                 {
                     b.HasOne("Persons.Data.Entities.Persons", "Person")
-                        .WithMany("RelatedPersons")
+                        .WithMany("PersonsGroup")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Persons.Data.Entities.PersonTypes", "PersonType")
+                        .WithMany("RelatedPersons")
+                        .HasForeignKey("PersonTypeId");
 
                     b.HasOne("Persons.Data.Entities.Persons", "RelatedPerson")
-                        .WithMany()
+                        .WithMany("RelatedPersons")
                         .HasForeignKey("RelatedPersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

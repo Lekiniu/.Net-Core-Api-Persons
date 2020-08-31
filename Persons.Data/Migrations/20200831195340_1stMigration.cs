@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persons.Data.Migrations
@@ -21,11 +22,25 @@ namespace Persons.Data.Migrations
                     Email = table.Column<string>(maxLength: 50, nullable: false),
                     MobileNumber = table.Column<string>(maxLength: 12, nullable: false),
                     PhoneNumber = table.Column<string>(maxLength: 12, nullable: true),
+                    BirthDate = table.Column<DateTime>(nullable: false),
                     AddressId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Persons", x => x.PersonId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonTypes",
+                columns: table => new
+                {
+                    PersonTypeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TypeName = table.Column<string>(maxLength: 15, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonTypes", x => x.PersonTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +73,6 @@ namespace Persons.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
-                    IsMain = table.Column<bool>(nullable: false),
                     PersonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -76,25 +90,33 @@ namespace Persons.Data.Migrations
                 name: "RelatedPersons",
                 columns: table => new
                 {
+                    RelateId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PersonTypeId = table.Column<int>(nullable: true),
                     PersonId = table.Column<int>(nullable: false),
-                    RelatedPersonId = table.Column<int>(nullable: false),
-                    Type = table.Column<string>(maxLength: 15, nullable: false)
+                    RelatedPersonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RelatedPersons", x => new { x.RelatedPersonId, x.PersonId });
+                    table.PrimaryKey("PK_RelatedPersons", x => x.RelateId);
                     table.ForeignKey(
                         name: "FK_RelatedPersons_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "PersonId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RelatedPersons_PersonTypes_PersonTypeId",
+                        column: x => x.PersonTypeId,
+                        principalTable: "PersonTypes",
+                        principalColumn: "PersonTypeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RelatedPersons_Persons_RelatedPersonId",
                         column: x => x.RelatedPersonId,
                         principalTable: "Persons",
                         principalColumn: "PersonId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -112,6 +134,16 @@ namespace Persons.Data.Migrations
                 name: "IX_RelatedPersons_PersonId",
                 table: "RelatedPersons",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RelatedPersons_PersonTypeId",
+                table: "RelatedPersons",
+                column: "PersonTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RelatedPersons_RelatedPersonId",
+                table: "RelatedPersons",
+                column: "RelatedPersonId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -127,6 +159,9 @@ namespace Persons.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Persons");
+
+            migrationBuilder.DropTable(
+                name: "PersonTypes");
         }
     }
 }
