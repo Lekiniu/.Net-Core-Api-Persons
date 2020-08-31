@@ -1,0 +1,11 @@
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\bin\Debug\netcoreapp2.2\Persons.Data.deps.json
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\bin\Debug\netcoreapp2.2\Persons.Data.dll
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.csprojAssemblyReference.cache
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.csproj.CoreCompileInputs.cache
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.AssemblyInfoInputs.cache
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.AssemblyInfo.cs
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\bin\Debug\netcoreapp2.2\Persons.Data.runtimeconfig.json
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\bin\Debug\netcoreapp2.2\Persons.Data.runtimeconfig.dev.json
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\bin\Debug\netcoreapp2.2\Persons.Data.pdb
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.dll
+C:\Users\Ika\source\repos\Persons.Api\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.pdb
