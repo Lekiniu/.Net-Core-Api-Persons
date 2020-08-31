@@ -10,3 +10,15 @@ C:\Users\Ika\source\repos\Persons.Api\Persons.Core\obj\Debug\netcoreapp2.2\Perso
 C:\Users\Ika\source\repos\Persons.Api\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.csproj.CopyComplete
 C:\Users\Ika\source\repos\Persons.Api\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.dll
 C:\Users\Ika\source\repos\Persons.Api\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.pdb
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\bin\Debug\netcoreapp2.2\Persons.Core.deps.json
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\bin\Debug\netcoreapp2.2\Persons.Core.dll
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\bin\Debug\netcoreapp2.2\Persons.Core.pdb
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\bin\Debug\netcoreapp2.2\Persons.Data.dll
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\bin\Debug\netcoreapp2.2\Persons.Data.pdb
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.csprojAssemblyReference.cache
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.csproj.CoreCompileInputs.cache
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.AssemblyInfoInputs.cache
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.AssemblyInfo.cs
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.csproj.CopyComplete
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.dll
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\obj\Debug\netcoreapp2.2\Persons.Core.pdb

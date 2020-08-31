@@ -27,6 +27,8 @@ namespace Persons.Data.Models
 
         public string PhoneNumber { get; set; }
 
+        public DateTime BirthDate { get; set; }
+
         [JsonIgnore]
         public int? AddressId { get; set; }
 

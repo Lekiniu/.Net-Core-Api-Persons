@@ -18,6 +18,7 @@ using Persons.Data.Entities;
 using Persons.Data.Interfaces;
 using Persons.Core.Services;
 using Newtonsoft.Json;
+using FluentValidation.AspNetCore;
 
 namespace Persons.Api
 {
@@ -34,7 +35,9 @@ namespace Persons.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
+            services.AddMvc()
+                .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });

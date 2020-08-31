@@ -43,6 +43,8 @@ namespace Persons.Data.Entities
         [MaxLength(12)]
         public string PhoneNumber { get; set; }
 
+        public DateTime BirthDate { get; set; }
+
         public int? AddressId { get; set; }
 
         public virtual Addresses Address { get; set; }
