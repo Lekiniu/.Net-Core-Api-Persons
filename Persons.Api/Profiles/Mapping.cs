@@ -31,13 +31,13 @@ namespace Persons.Core.Profiles
         public MappingProfile()
         {
             CreateMap<Persons.Data.Entities.Persons, PersonsModel>()
-          .MaxDepth(1)
-          .ReverseMap()
-          .ForPath(x => x.AddressId, x => x.Ignore())
-          //.ForPath(x => x.Address, x => x.Ignore())
-          .ForPath(x => x.PersonId, x => x.Ignore());
+            .MaxDepth(1)
+            .ReverseMap()
+            .ForPath(x => x.AddressId, x => x.Ignore())
+            //.ForPath(x => x.Address, x => x.Ignore())
+            .ForPath(x => x.PersonId, x => x.Ignore());
 
-        CreateMap<Addresses, AddressesModel>()
+            CreateMap<Addresses, AddressesModel>()
                 .MaxDepth(1)
                 .ReverseMap()
                 .ForPath(x => x.AddressId, x => x.Ignore())
@@ -52,14 +52,23 @@ namespace Persons.Core.Profiles
               .ForPath(x => x.PersonId, x => x.Ignore())
               .ForMember(dto => dto.Person, x => x.Ignore());
 
-            //CreateMap<RelatedPersons, RelatedPersonsModel>()
-            //.MaxDepth(1)
-            //.ReverseMap()
-            //.ForPath(x => x.RelateId, x => x.Ignore())
-            //.ForPath(x => x.PersonId, x => x.Ignore())
-            //.ForPath(x => x.RelatedPersonId, x => x.Ignore())
-            //.ForMember(dto => dto.RelatedPerson, x => x.Ignore())
-            //.ForMember(dto => dto.Person, x => x.Ignore());
+
+            //CreateMap<Data.Entities.Persons, RelatedPersonsModel>()
+            //     .ForMember(dto => dto.Name, opt => opt.MapFrom(x => x.Name))
+            //     .ForMember(dto => dto.PrivateNumber, opt => opt.MapFrom(x => x.PrivateNumber))
+            //     .ForMember(dto => dto.Surname, opt => opt.MapFrom(x => x.Surname))
+            //      //.ForMember(dto => dto.Type, opt => opt.MapFrom(x => x.RelatedPersons.Select(e=>e.PersonType.TypeName)))
+            //  .MaxDepth(1)
+            //   .ReverseMap();
+
+            CreateMap<RelatedPersons, RelatedPersonsModel>()
+            .MaxDepth(1)
+            .ReverseMap()
+            .ForPath(x => x.RelateId, x => x.Ignore())
+            .ForPath(x => x.PersonId, x => x.Ignore())
+            .ForPath(x => x.RelatedPersonId, x => x.Ignore())
+            .ForMember(dto => dto.RelatedPerson, x => x.Ignore())
+            .ForMember(dto => dto.Person, x => x.Ignore());
         }
 
     }

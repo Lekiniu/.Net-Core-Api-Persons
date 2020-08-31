@@ -117,4 +117,15 @@ namespace Persons.Api.Validators
 
         }
     }
+
+    public class PersonTypeModelValidator : AbstractValidator<PersonTypeModel>
+    {
+        public PersonTypeModelValidator()
+        {
+            RuleFor(file => file.TypeName)
+               .Cascade(CascadeMode.Stop)
+               .NotNull().WithMessage("{PropertyName} is  empty")
+               .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid");
+        }
+    }
 }

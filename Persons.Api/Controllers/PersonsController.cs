@@ -138,11 +138,11 @@ namespace Persons.Api.Controllers
         [HttpPost]
         [Route("{personId}/AddRelativePerson/{RelativePersonId}")]
         [ModelStateFilter]
-        public async Task<IActionResult> CreateRelativePersonAsync(int personId, RelatedPersonsModel relatedperson, int relativePersonId)
+        public async Task<IActionResult> CreateRelativePersonAsync(int personId, PersonTypeModel type, int relativePersonId)
         {
             if (_relatedPersonServices.checkIfRelatedPersonExist(personId, relativePersonId))
             {
-                var model = await _relatedPersonServices.AddRelatedPersonAsync(personId, relatedperson.Type, relativePersonId);
+                var model = await _relatedPersonServices.AddRelatedPersonAsync(personId, type, relativePersonId);
                 var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
                 return Created(location, model);
             }

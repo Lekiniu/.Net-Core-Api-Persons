@@ -103,6 +103,8 @@ namespace Persons.Core.Services
                     .Include(m => m.Address)
                     .Include(m => m.RelatedPersons)
                     .ThenInclude(e=>e.RelatedPerson)
+                    .Include(e=>e.RelatedPersons)
+                    .ThenInclude(m=>m.PersonType)
                     .FirstOrDefaultAsync(m => m.PersonId == personId);
  
             var result = Mapping.Mapper.Map<PersonsModel>(personModel);

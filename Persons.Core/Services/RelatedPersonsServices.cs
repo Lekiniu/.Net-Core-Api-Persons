@@ -32,12 +32,12 @@ namespace Persons.Core.Services
          }
 
 
-        public async Task<PersonsModel> AddRelatedPersonAsync(int personId, string type, int relativePersonId)
+        public async Task<PersonsModel> AddRelatedPersonAsync(int personId, PersonTypeModel type, int relativePersonId)
         {
             var person = await _context.Persons.
                 FirstOrDefaultAsync(e => e.PersonId == personId);
 
-            //await SaveRelatedPerson(personId, type, relativePersonId);
+            await SaveRelatedPerson(personId, type, relativePersonId);
 
 
             return Mapping.Mapper.Map<PersonsModel>(person);
@@ -55,46 +55,53 @@ namespace Persons.Core.Services
             }
         }
 
+
+
         public async Task <IEnumerable<RelatedPersonsModel>> GetRelatedPersonsByIdAsync(int personId)
         {
             var relatedPersonList = await _context.RelatedPersons
                           .Where(m => m.PersonId == personId).Select(e=>e.RelatedPerson).ToListAsync();
 
 
-            //var model= Mapping.Mapper.Map<List<PersonsModel>>(personModel);
+            //var model= Mapping.Mapper.Map<List<RelatedPersonsModel>>(relatedPersonList);
 
             var result = relatedPersonList.Select(m => new RelatedPersonsModel()
             {
                 RelatedPersonId = m.PersonId,
-                Name= m.Name,
-                Surname= m.Surname,
+                Name = m.Name,
+                Surname = m.Surname,
                 PrivateNumber = m.PrivateNumber,
-                //Type = getPersonType(personId, m.PersonId)
+                Type = getPersonType(personId, m.PersonId)
             });
 
-            //var model = Mapping.Mapper.Map<List<PersonsModel>>(RelatedPersonList);
-            return result;
+            var model = Mapping.Mapper.Map<List<RelatedPersonsModel>>(result);
+            return model;
         }
 
-        //private  string getPersonType(int personId, int relatedPersonId)
-        //{
-        //    var model= _context.RelatedPersons.
-        //     FirstOrDefault(e => e.PersonId == personId && e.RelatedPersonId == relatedPersonId);
+        private string getPersonType(int personId, int relatedPersonId)
+        {
+            var model =  _context.RelatedPersons.
+             FirstOrDefault(e => e.PersonId == personId && e.RelatedPersonId == relatedPersonId);
+            var result =  _context.PersonTypes.FirstOrDefault(e => e.PersonTypeId == model.PersonTypeId);
+            return result.TypeName;
+        }
 
-        //    return model.Type;
-        //}
+        private async Task SaveRelatedPerson(int personId, PersonTypeModel type, int relativePersonId)
+        {
 
-        //private async Task SaveRelatedPerson(int personId, string type, int relativePersonId)
-        //{
-        //    await _context.RelatedPersons.AddAsync(
-        //      new RelatedPersons
-        //      {
-        //          RelatedPersonId = relativePersonId,
-        //          PersonId = personId,
-        //          Type = type
-        //      });
-        //    await _context.SaveChangesAsync();
-        //}
+            var result = Mapping.Mapper.Map<PersonTypes>(type);
+             await _context.PersonTypes.AddAsync(result);
+
+            await _context.RelatedPersons.AddAsync(
+              new RelatedPersons
+              {
+                  RelatedPersonId = relativePersonId,
+                  PersonId = personId,
+                  PersonTypeId = result.PersonTypeId
+              });
+          
+            await _context.SaveChangesAsync();
+        }
 
     }
 
