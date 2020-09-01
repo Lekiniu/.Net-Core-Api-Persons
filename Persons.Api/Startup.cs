@@ -37,6 +37,8 @@ namespace Persons.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddMvc()
                 .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
@@ -51,27 +53,27 @@ namespace Persons.Api
             services.AddScoped<IFileService, FileServices>();
             services.AddScoped<IRelatedPersonServices, RelatedPersonsServices>();
 
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                      {
-                            new CultureInfo("en-US"),
-                            new CultureInfo("ka-Ge"),
+            //services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    var supportedCultures = new[]
+            //          {
+            //                new CultureInfo("en-US"),
+            //                new CultureInfo("ka-Ge"),
 
-                        };
+            //            };
 
-                options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(context =>
-                {
-                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
-                    options.SupportedCultures = supportedCultures;
-                    options.SupportedUICultures = supportedCultures;
+            //    options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(context =>
+            //    {
+            //        options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+            //        options.SupportedCultures = supportedCultures;
+            //        options.SupportedUICultures = supportedCultures;
 
-                    var userLangs = context.Request.Headers["Accept-Language"].ToString();
-                    var firstLang = userLangs.Split(',').FirstOrDefault();
-                    var defaultLang = string.IsNullOrEmpty(firstLang) ? "en-US" : firstLang;
-                    return Task.FromResult(new ProviderCultureResult(defaultLang, defaultLang));
-                }));
-            });
+            //        var userLangs = context.Request.Headers["Accept-Language"].ToString();
+            //        var firstLang = userLangs.Split(',').FirstOrDefault();
+            //        var defaultLang = string.IsNullOrEmpty(firstLang) ? "en-US" : firstLang;
+            //        return Task.FromResult(new ProviderCultureResult(defaultLang, defaultLang));
+            //    }));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +88,13 @@ namespace Persons.Api
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var supportedCultures = new[] { "en-US", "ka-Ge" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

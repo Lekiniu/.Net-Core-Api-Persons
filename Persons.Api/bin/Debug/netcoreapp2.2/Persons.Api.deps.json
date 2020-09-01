@@ -36,6 +36,14 @@
         "runtime": {
           "Persons.Api.dll": {}
         },
+        "resources": {
+          "en-Us/Persons.Api.resources.dll": {
+            "locale": "en-Us"
+          },
+          "ka-GE/Persons.Api.resources.dll": {
+            "locale": "ka-GE"
+          }
+        },
         "compile": {
           "Persons.Api.dll": {}
         }
