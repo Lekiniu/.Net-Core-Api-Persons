@@ -103,8 +103,6 @@ namespace Persons.Core.Services
                     .Include(m => m.Address)
                     .Include(m => m.RelatedPersons)
                     .ThenInclude(e=>e.RelatedPerson)
-                    .Include(e=>e.RelatedPersons)
-                    .ThenInclude(m=>m.PersonType)
                     .FirstOrDefaultAsync(m => m.PersonId == personId);
  
             var result = Mapping.Mapper.Map<PersonsModel>(personModel);
@@ -116,15 +114,24 @@ namespace Persons.Core.Services
 
         public async Task<PersonsModel> CreatePersonAsync(PersonsModel person)
         {
-            var result = Mapping.Mapper.Map<Persons.Data.Entities.Persons>(person);
-            await _context.Persons.AddAsync(result);
-            await _context.SaveChangesAsync();
-            var personModel = await _context.Persons
-                              .Include(m => m.Address)
-                              .Include(m => m.Files)
-                              .FirstOrDefaultAsync(m => m.PersonId == result.PersonId);
+             var personResult = Mapping.Mapper.Map<Persons.Data.Entities.Persons>(person);
+            await _context.Persons.AddAsync(personResult);
+         
+            if (person.Address != null)
+            {
+                var Addressresult = Mapping.Mapper.Map<Addresses>(person.Address);
+                Addressresult.PersonId = personResult.PersonId;
 
-            return Mapping.Mapper.Map<PersonsModel>(personModel);
+                await _context.Addresses.AddAsync(Addressresult);
+                await _context.SaveChangesAsync();
+
+                personResult.AddressId = Addressresult.AddressId;
+            }
+           await _context.SaveChangesAsync();
+
+            var personModel = await GetPersonModel(personResult.PersonId);
+
+            return personModel;
 
         }
 
@@ -139,6 +146,19 @@ namespace Persons.Core.Services
             return Mapping.Mapper.Map<PersonsModel>(result);
         }
 
+
+        public async Task<PersonsModel>  EditPersonAddressAsync(int personId, AddressesModel address, int addressId)
+        {
+            var oldmodel = await _context.Addresses
+               .FirstOrDefaultAsync(e => e.PersonId == personId && e.AddressId == addressId);
+
+            var result = Mapping.Mapper.Map(address, oldmodel);
+            await _context.SaveChangesAsync();
+
+            var personModel = await GetPersonModel(personId);
+
+            return personModel;
+        }
 
         public async Task DeletePersonAsync(int personId)
         {
@@ -188,6 +208,17 @@ namespace Persons.Core.Services
             }
         }
         #endregion
+
+
+        public async Task<PersonsModel> GetPersonModel(int personId)
+        {
+            var result = await _context.Persons
+                          .Include(m => m.Address)
+                          .Include(m => m.Files)
+                          .FirstOrDefaultAsync(m => m.PersonId == personId);
+
+            return Mapping.Mapper.Map<PersonsModel>(result);
+        }
 
         public bool CheckIfPersonExit(int personId)
         {

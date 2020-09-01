@@ -61,7 +61,7 @@ namespace Persons.Core.Services
         {
             var relatedPersonList = await _context.RelatedPersons
                           .Where(m => m.PersonId == personId).Select(e=>e.RelatedPerson).ToListAsync();
-
+            
 
             //var model= Mapping.Mapper.Map<List<RelatedPersonsModel>>(relatedPersonList);
 

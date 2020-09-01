@@ -15,6 +15,8 @@ namespace Persons.Data.Interfaces
         
         Task<PersonsModel> EditPersonAsync(int personId, PersonsModel person);
 
+        Task<PersonsModel> EditPersonAddressAsync(int personId,AddressesModel address, int addressId);
+
         Task DeletePersonAsync(int personId);
 
         Task<IEnumerable<PersonsModel>> GetAllPersonsAsync(PagedParameters pagedParameters);

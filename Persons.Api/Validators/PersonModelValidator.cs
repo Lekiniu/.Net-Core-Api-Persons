@@ -85,19 +85,16 @@ namespace Persons.Api.Validators
         {
             RuleFor(address => address.Country)
                .Cascade(CascadeMode.Stop)
-               .NotNull().WithMessage("{PropertyName} is  empty")
                .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid")
                .Matches("^[A-Za-z]*$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(address => address.City)
              .Cascade(CascadeMode.Stop)
-             .NotNull().WithMessage("{PropertyName} is  empty")
              .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid")
              .Matches("^[A-Za-z]*$").WithMessage("{PropertyName} Invalid");
 
             RuleFor(address => address.Street)
               .Cascade(CascadeMode.Stop)
-              .NotNull().WithMessage("{PropertyName} is  empty")
               .MaximumLength(50).WithMessage("Length of {PropertyName} Invalid");     
         }
     }

@@ -8,9 +8,9 @@ namespace Persons.Data.Entities
 {
    public class RelatedPersons
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RelateId { get; set; }
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int RelateId { get; set; }
 
 
         public int? PersonTypeId { get; set; }
@@ -19,13 +19,13 @@ namespace Persons.Data.Entities
 
         public int RelatedPersonId { get; set; }
 
-        [ForeignKey("PersonId")]
+        //[ForeignKey("PersonId")]
         public virtual Persons Person { get; set; }
 
-        [ForeignKey("RelatedPersonId")]
+        //[ForeignKey("RelatedPersonId")]
         public virtual Persons RelatedPerson { get; set; }
 
-        [ForeignKey("PersonTypeId")]
+        //[ForeignKey("PersonTypeId")]
         public virtual PersonTypes PersonType { get; set; }
 
     }

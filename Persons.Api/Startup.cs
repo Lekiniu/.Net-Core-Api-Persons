@@ -19,6 +19,8 @@ using Persons.Data.Interfaces;
 using Persons.Core.Services;
 using Newtonsoft.Json;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace Persons.Api
 {
@@ -48,6 +50,28 @@ namespace Persons.Api
             services.AddScoped<IPersonServices, PersonServices>();
             services.AddScoped<IFileService, FileServices>();
             services.AddScoped<IRelatedPersonServices, RelatedPersonsServices>();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                      {
+                            new CultureInfo("en-US"),
+                            new CultureInfo("ka-Ge"),
+
+                        };
+
+                options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(context =>
+                {
+                    options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+
+                    var userLangs = context.Request.Headers["Accept-Language"].ToString();
+                    var firstLang = userLangs.Split(',').FirstOrDefault();
+                    var defaultLang = string.IsNullOrEmpty(firstLang) ? "en-US" : firstLang;
+                    return Task.FromResult(new ProviderCultureResult(defaultLang, defaultLang));
+                }));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

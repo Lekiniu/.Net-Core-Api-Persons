@@ -79,7 +79,6 @@ namespace Persons.Api.Controllers
             if (_personService.CheckIfOldPersonExit(personId, person))
             {
                 var model = await _personService.EditPersonAsync(personId, person);
-                //var result = _mapper.Map<CatalogsEntity>(catalogs);
                 var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
                 return model;
             }
@@ -87,6 +86,18 @@ namespace Persons.Api.Controllers
             {
                 return BadRequest("person has already been added");
             }
+        }
+
+
+
+        [HttpPut]
+        [Route("{personId}/EditAddress/{addressId}")]
+        public async Task<ActionResult<PersonsModel>> EditPersonAddressAsync(int personId, AddressesModel address, int addressId)
+        {
+
+                var model = await _personService.EditPersonAddressAsync(personId, address, addressId);
+                var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
+                return model;
         }
 
         [HttpDelete]
