@@ -38,8 +38,9 @@ C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcor
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.pdb
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\bin\Debug\netcoreapp2.2\en-Us\Persons.Api.resources.dll
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\bin\Debug\netcoreapp2.2\ka-GE\Persons.Api.resources.dll
-C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.Resources.Global.en-Us.resources
-C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.Resources.Global.ka-GE.resources
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.csproj.GenerateResource.cache
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\en-Us\Persons.Api.resources.dll
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\ka-GE\Persons.Api.resources.dll
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.Resources.SharedResource.resources
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.Resources.SharedResource.en-Us.resources
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\obj\Debug\netcoreapp2.2\Persons.Api.Resources.SharedResource.ka-GE.resources

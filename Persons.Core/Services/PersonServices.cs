@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Persons.Data.Helpers;
 
+
 namespace Persons.Core.Services
 {
     public class PersonServices: IPersonServices
@@ -21,11 +22,13 @@ namespace Persons.Core.Services
 
         private readonly PersonsDbContext _context;
         private readonly IHostingEnvironment _appEnvironment;
+        private readonly IRelatedPersonServices _relatedPersonsServices;
 
-        public PersonServices(PersonsDbContext context, IHostingEnvironment appEnvironment)
+        public PersonServices(PersonsDbContext context, IHostingEnvironment appEnvironment, IRelatedPersonServices relatedPersonsServices)
         {
             _context = context;
             _appEnvironment = appEnvironment;
+            _relatedPersonsServices = relatedPersonsServices;
         }
 
 
@@ -96,20 +99,18 @@ namespace Persons.Core.Services
         }
 
 
-        public async Task <PersonsModel> GetPersonByIdAsync(int personId)     
-        {           
-            var personModel = await _context.Persons 
+        public async Task <PersonsModel> GetPersonByIdAsync(int personId)
+        {
+            var personModel = await _context.Persons
                     .Include(m => m.Files)
                     .Include(m => m.Address)
-                    .Include(m => m.RelatedPersons)
-                    .ThenInclude(e=>e.RelatedPerson)
                     .FirstOrDefaultAsync(m => m.PersonId == personId);
- 
-            var result = Mapping.Mapper.Map<PersonsModel>(personModel);
 
+            var result = Mapping.Mapper.Map<PersonsModel>(personModel);
+            result.RelatedPersons = await _relatedPersonsServices.GetRelatedPersonsByIdAsync(personId);
             return result;
         }
-
+        
 
 
         public async Task<PersonsModel> CreatePersonAsync(PersonsModel person)
@@ -235,6 +236,13 @@ namespace Persons.Core.Services
         {
             var result = _context.Persons.FirstOrDefault(e => e.PersonId == personId);
             return _context.Persons.FirstOrDefault(e => e.PrivateNumber == person.PrivateNumber) == null || result.PrivateNumber != person.PrivateNumber ? true : false;
+        }
+
+        public async Task<List<RelatedPersons>> GetRelatedPersons(int personId)
+        {
+            var result = await _context.RelatedPersons.Where(e => e.PersonId == personId).Include(e=>e.RelatedPerson).Include(e=>e.PersonType).ToListAsync();
+
+            return result;
         }
     }
 }

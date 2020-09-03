@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace Persons.Api
 {
@@ -39,7 +40,28 @@ namespace Persons.Api
         {
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+            services.Configure<RequestLocalizationOptions>(Options =>
+            {
+                var supportedCultures = new[] 
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("ka-Ge")
+                };
+                Options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
+
+                Options.SupportedCultures = supportedCultures;
+
+                Options.SupportedUICultures = supportedCultures;
+            });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddMvc()
+                .AddDataAnnotationsLocalization()
                 .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -53,27 +75,7 @@ namespace Persons.Api
             services.AddScoped<IFileService, FileServices>();
             services.AddScoped<IRelatedPersonServices, RelatedPersonsServices>();
 
-            //services.Configure<RequestLocalizationOptions>(options =>
-            //{
-            //    var supportedCultures = new[]
-            //          {
-            //                new CultureInfo("en-US"),
-            //                new CultureInfo("ka-Ge"),
-
-            //            };
-
-            //    options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(context =>
-            //    {
-            //        options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
-            //        options.SupportedCultures = supportedCultures;
-            //        options.SupportedUICultures = supportedCultures;
-
-            //        var userLangs = context.Request.Headers["Accept-Language"].ToString();
-            //        var firstLang = userLangs.Split(',').FirstOrDefault();
-            //        var defaultLang = string.IsNullOrEmpty(firstLang) ? "en-US" : firstLang;
-            //        return Task.FromResult(new ProviderCultureResult(defaultLang, defaultLang));
-            //    }));
-            //});
+            services.AddSingleton<SharedViewLocalizer, SharedViewLocalizer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,16 +91,23 @@ namespace Persons.Api
                 app.UseHsts();
             }
 
-            var supportedCultures = new[] { "en-US", "ka-Ge" };
-            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
-                .AddSupportedCultures(supportedCultures)
-                .AddSupportedUICultures(supportedCultures);
+            //var supportedCultures = new[] { "en-US", "ka-Ge" };
+            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            //    .AddSupportedCultures(supportedCultures)
+            //    .AddSupportedUICultures(supportedCultures);
 
-            app.UseRequestLocalization(localizationOptions);
+            var options = app.ApplicationServices.GetService <IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvc();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller}/{id?}");
+            });
         }
     }
 }

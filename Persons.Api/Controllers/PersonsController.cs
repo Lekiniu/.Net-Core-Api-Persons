@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using Persons.Data.Models;
 using Persons.Data.Helpers;
+using Microsoft.AspNetCore.Localization;
 
 namespace Persons.Api.Controllers
 {
@@ -35,6 +36,26 @@ namespace Persons.Api.Controllers
             _fileService = fileService;
             _relatedPersonServices = relatedPersonServices;
         }
+
+
+        public IActionResult SetCulture(string path, bool ishttps, string lang = "en-US")
+        {
+            string culture = lang;
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+                );
+            ViewData["Message"] = "Culture set to " + culture;
+            if (path != null)
+            {
+                var url = ishttps ? @"https://" + path : @"http://" + path;
+                return Redirect(url);
+            }
+            return RedirectToAction("GetAllPersonsAsync", "Persons");
+        }
+
+
 
         #region Persons
         [HttpGet]

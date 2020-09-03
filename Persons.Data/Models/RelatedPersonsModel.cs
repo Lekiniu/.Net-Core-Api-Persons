@@ -8,7 +8,6 @@ namespace Persons.Data.Models
 {
    public class RelatedPersonsModel
     {
-
         [ScaffoldColumn(false)]
         public int RelatedPersonId { get; set; }
 
@@ -21,3 +20,4 @@ namespace Persons.Data.Models
         public string Type { get; set; }
     }
 }
+

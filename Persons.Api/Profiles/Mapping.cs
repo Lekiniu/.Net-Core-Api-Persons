@@ -30,8 +30,9 @@ namespace Persons.Core.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Persons.Data.Entities.Persons, PersonsModel>()
-                .ForMember(dto => dto.RelatedPerson, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.RelatedPerson)))
+            CreateMap<Data.Entities.Persons, PersonsModel>()
+                //.ForMember(dto => dto.RelatedPerson, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.RelatedPerson)))
+                // .ForMember(dto => dto.Type, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.PersonType.TypeName)))
             .MaxDepth(1)
             .ReverseMap()
             .ForPath(x => x.AddressId, x => x.Ignore())
@@ -54,14 +55,6 @@ namespace Persons.Core.Profiles
               .ForPath(x => x.PersonId, x => x.Ignore())
               .ForMember(dto => dto.Person, x => x.Ignore());
 
-
-            //CreateMap<Data.Entities.Persons, RelatedPersonsModel>()
-            //     .ForMember(dto => dto.Name, opt => opt.MapFrom(x => x.Name))
-            //     .ForMember(dto => dto.PrivateNumber, opt => opt.MapFrom(x => x.PrivateNumber))
-            //     .ForMember(dto => dto.Surname, opt => opt.MapFrom(x => x.Surname))
-            //      //.ForMember(dto => dto.Type, opt => opt.MapFrom(x => x.RelatedPersons.Select(e=>e.PersonType.TypeName)))
-            //  .MaxDepth(1)
-            //   .ReverseMap();
 
             CreateMap<RelatedPersons, RelatedPersonsModel>()
             .MaxDepth(1)

@@ -31,7 +31,7 @@ namespace Persons.Core.Profiles
         public MappingProfile()
         {
            CreateMap<Persons.Data.Entities.Persons, PersonsModel>()
-                 .ForMember(dto => dto.RelatedPerson, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.RelatedPerson)))
+                 //.ForMember(dto => dto.RelatedPerson, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.RelatedPerson)))
           .MaxDepth(1)
           .ReverseMap()
           .ForPath(x => x.AddressId, x => x.Ignore())

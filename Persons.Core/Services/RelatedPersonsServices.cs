@@ -20,10 +20,10 @@ namespace Persons.Core.Services
 
         private readonly PersonsDbContext _context;
         private readonly IPersonServices _personServices;
-        public RelatedPersonsServices(PersonsDbContext context, IPersonServices personServices)
+
+        public RelatedPersonsServices(PersonsDbContext context)
         {
             _context = context;
-            _personServices = personServices;
         }
 
         public bool checkIfRelatedPersonExist(int personId, int relativePersonId)

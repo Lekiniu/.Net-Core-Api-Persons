@@ -27,17 +27,19 @@ namespace Persons.Data.Entities
                .HasOne(bc => bc.Person)
                .WithMany(b => b.PersonsGroup)
                .HasForeignKey(bc => bc.PersonId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<RelatedPersons>()
                 .HasOne(bc => bc.RelatedPerson)
                 .WithMany(c => c.RelatedPersons)
                 .HasForeignKey(bc => bc.RelatedPersonId)
-                 .OnDelete(DeleteBehavior.Restrict); 
+                 .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<RelatedPersons>()
                .HasOne(bc => bc.PersonType)
                .WithMany(c => c.RelatedPersons)
                .HasForeignKey(bc => bc.PersonTypeId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
 
             //modelBuilder.Entity<Persons>()
             //    .HasMany(u => u.RelatedPersons)
@@ -68,6 +70,28 @@ namespace Persons.Data.Entities
             //    .HasOne(pt => pt.Person)
             //    .WithMany(t => t.PersonsGroup)
             //    .HasForeignKey(pt => pt.PersonId);
+
+
+            //modelBuilder.Entity<RelatedPersons>()
+            //    .HasKey(u => new { u.RelatedPersonId, u.PersonTypeId, u.PersonId });
+
+            modelBuilder.Entity<Persons>()
+                .HasMany(u => u.RelatedPersons)
+                .WithOne(f => f.RelatedPerson)
+                .HasForeignKey(f => f.RelatedPersonId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Persons>()
+                .HasMany(u => u.PersonsGroup)
+                .WithOne(f => f.Person)
+                .HasForeignKey(f => f.PersonId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<RelatedPersons>()
+            //   .HasOne(bc => bc.PersonType)
+            //   .WithMany(c => c.RelatedPersons)
+            //   .HasForeignKey(bc => bc.PersonTypeId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

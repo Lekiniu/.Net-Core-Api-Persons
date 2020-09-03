@@ -19,6 +19,7 @@ namespace Persons.Data.Models
 
         public string SurnameEng { get; set; }
 
+        [Display(Name = "PrivateNumber")]
         public string PrivateNumber { get; set; }
 
         public string Email { get; set; }
@@ -36,7 +37,11 @@ namespace Persons.Data.Models
 
         public  IEnumerable<FilesModel> Files { get; set; }
 
-        public IEnumerable<PersonsModel> RelatedPerson { get; set; }
+        public IEnumerable<RelatedPersonsModel> RelatedPersons { get; set; }
+
+        //public IEnumerable<PersonsModel> Persons { get; set; }
+
+        //public string Type { get; set; }
 
         //public ICollection<PersonsModel> Person { get; set; }
     }
