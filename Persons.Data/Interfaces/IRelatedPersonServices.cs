@@ -10,6 +10,7 @@ namespace Persons.Data.Interfaces
     {
         Task<PersonsModel> AddRelatedPersonAsync(int personId, PersonTypesModel type, int relativePersonId);
 
+        Task<PersonsModel> GetPersonByIdAsync(int personId);
 
         bool checkIfRelatedPersonExist(int personId, int relativePersonId);
 

@@ -10,9 +10,7 @@ namespace Persons.Data.Interfaces
     public interface IPersonServices
     {
         Task<PersonsModel> CreatePersonAsync(PersonsModel person);
-
-        Task<PersonsModel> GetPersonByIdAsync(int personId);      
-        
+          
         Task<PersonsModel> EditPersonAsync(int personId, PersonsModel person);
 
         Task<PersonsModel> EditPersonAddressAsync(int personId,AddressesModel address, int addressId);

@@ -92,17 +92,7 @@ namespace Persons.Core.Services
         }
 
 
-        public async Task <PersonsModel> GetPersonByIdAsync(int personId)
-        {
-            var personModel = await _context.Persons
-                    .Include(m => m.Files)
-                    .Include(m => m.Address)
-                    .FirstOrDefaultAsync(m => m.PersonId == personId);
-
-            var result = Mapping.Mapper.Map<PersonsModel>(personModel);
-            result.RelatedPersons = await _relatedPersonsServices.GetRelatedPersonsByIdAsync(personId);
-            return result;
-        }
+       
         
 
 

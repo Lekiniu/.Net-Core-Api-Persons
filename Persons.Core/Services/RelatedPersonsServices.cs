@@ -37,8 +37,8 @@ namespace Persons.Core.Services
 
             await SaveRelatedPerson(personId, personTypeModel, relativePersonId);
 
-
-            return Mapping.Mapper.Map<PersonsModel>(person);
+            var result = await GetPersonByIdAsync(personId);
+            return result;
         }
 
         public async Task DeleteRelatedPersonAsync(int personId, int relativePersonId)
@@ -96,8 +96,13 @@ namespace Persons.Core.Services
         private async Task SaveRelatedPerson(int personId, PersonTypesModel personTypeModel, int relativePersonId)
         {
 
-             var result = Mapping.Mapper.Map<PersonTypes>(personTypeModel);
+            //var result = Mapping.Mapper.Map<PersonTypes>(personTypeModel);
+            var result = new PersonTypes()
+            {
+                TypeName = personTypeModel.TypeName
+            };
              await _context.PersonTypes.AddAsync(result);
+            await _context.SaveChangesAsync();
 
             await _context.RelatedPersons.AddAsync(
               new RelatedPersons
@@ -110,6 +115,18 @@ namespace Persons.Core.Services
             await _context.SaveChangesAsync();
         }
 
+
+        public async Task<PersonsModel> GetPersonByIdAsync(int personId)
+        {
+            var personModel = await _context.Persons
+                    .Include(m => m.Files)
+                    .Include(m => m.Address)
+                    .FirstOrDefaultAsync(m => m.PersonId == personId);
+
+            var result = Mapping.Mapper.Map<PersonsModel>(personModel);
+            result.RelatedPersons = await GetRelatedPersonsByIdAsync(personId);
+            return result;
+        }
     }
 
 }

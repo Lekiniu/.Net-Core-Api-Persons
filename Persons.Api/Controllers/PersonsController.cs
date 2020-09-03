@@ -81,7 +81,7 @@ namespace Persons.Api.Controllers
         [HttpGet("{personId}")]
         public async Task<IActionResult> GetPersonByIdAsync(int personId)
         {
-            var model = await _personService.GetPersonByIdAsync(personId);
+            var model = await _relatedPersonServices.GetPersonByIdAsync(personId);
             if (model == null) return NotFound();
             /*var test = nameof(model.PrivateNumber);*//* = _localizer["PrivateNumber"].Value;*/
             return Ok(model);
@@ -153,7 +153,7 @@ namespace Persons.Api.Controllers
         public async Task<IActionResult> AddPersonFileAsync(int personId, IFormFile file)
         {
             await _fileService.UploadFileAsync(personId, file);
-            var model = await _personService.GetPersonByIdAsync(personId);
+            var model = await _relatedPersonServices.GetPersonByIdAsync(personId);
             var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
             return Created(location, model);
         }
@@ -164,7 +164,7 @@ namespace Persons.Api.Controllers
         public async Task<IActionResult> EditPersonFileAsync(int personId, IFormFile file)
         {
             await _fileService.EditFileAsync(personId, file);
-            var model = await _personService.GetPersonByIdAsync(personId);
+            var model = await _relatedPersonServices.GetPersonByIdAsync(personId);
             var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
             return Created(location, model);
         }
@@ -173,7 +173,7 @@ namespace Persons.Api.Controllers
         public async Task<IActionResult> RemovePersonFileAsync(int personId, int fileId)
         {
             await _fileService.DeleteFileAsync(personId, fileId);
-            var model = await _personService.GetPersonByIdAsync(personId);
+            var model = await _relatedPersonServices.GetPersonByIdAsync(personId);
             var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
             return Created(location, model);
         }
@@ -203,7 +203,7 @@ namespace Persons.Api.Controllers
         public async Task<IActionResult> DeleteRelatedPersonFileAsync(int personId, int relativePersonId)
         {
             await _relatedPersonServices.DeleteRelatedPersonAsync(personId, relativePersonId);
-            var model = await _personService.GetPersonByIdAsync(personId);
+            var model = await _relatedPersonServices.GetPersonByIdAsync(personId);
             var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
             return Created(location, model);
         }
