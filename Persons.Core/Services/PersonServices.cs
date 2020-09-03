@@ -38,49 +38,47 @@ namespace Persons.Core.Services
         public async Task<IEnumerable<PersonsModel>> GetAllPersonsAsync(PagedParameters pagedParameters)
         {
             var personsModel = _context.Persons;
-                
-            var querySearch = pagedParameters.SearchQuery.Trim().ToLower();
+            var personsCollection = _context.Persons as IQueryable<Data.Entities.Persons>;
+
+                var querySearch = pagedParameters.SearchQuery.Trim().ToLower();
             var sortOrder = pagedParameters.SortOrder.Trim().ToLower();
 
-            //CurrentSort = sortOrder;
-            //NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            //DateSort = sortOrder == "surName" ? "surName_desc" : "surName";
-
-            var personsCollection = _context.Persons as IQueryable<Data.Entities.Persons>;
-            //IQueryable <Data.Entities.Persons> personsCollection = from s in _context.Persons
-            //                                select s;
-            if (!string.IsNullOrWhiteSpace(querySearch))
-            {
-                personsCollection = _context.Persons.
-                    Where(m => m.Name.Contains(querySearch)
-                    || m.NameEng.Contains(querySearch)
-                    || m.Surname.Contains(querySearch)
-                    || m.SurnameEng.Contains(querySearch)
-                    || m.PrivateNumber.Contains(querySearch)
-                    || m.Email.Contains(querySearch)
-                    || m.PhoneNumber.Contains(querySearch)
-                    || m.Address.Street.Contains(querySearch)
-                    || m.Address.City.Contains(querySearch)
-                    || m.Address.Country.Contains(querySearch));
-            }
-         switch (sortOrder)
-            {
-                case "name_desc":
-                    personsCollection = personsCollection.OrderByDescending(s => s.Name);
-                    break;
-                case "surname":
-                    personsCollection = personsCollection.OrderBy(s => s.Surname);
-                    break;
-                case "surname_desc":
-                    personsCollection = personsCollection.OrderByDescending(s => s.Surname);
-                    break;
-                case "name":
-                    personsCollection = personsCollection.OrderBy(s => s.Name);
-                    break;
-                default:
-                    personsCollection = personsCollection.OrderBy(s => s.PersonId);
-                    break;
-            }
+                //var CurrentSort = sortOrder;
+                //CurrentSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                //CurrentSort = sortOrder == "surName" ? "surName_desc" : "surName";
+   
+                if (!string.IsNullOrWhiteSpace(querySearch))
+                {
+                    personsCollection = _context.Persons.
+                        Where(m => m.Name.Contains(querySearch)
+                        || m.NameEng.Contains(querySearch)
+                        || m.Surname.Contains(querySearch)
+                        || m.SurnameEng.Contains(querySearch)
+                        || m.PrivateNumber.Contains(querySearch)
+                        || m.Email.Contains(querySearch)
+                        || m.PhoneNumber.Contains(querySearch)
+                        || m.Address.Street.Contains(querySearch)
+                        || m.Address.City.Contains(querySearch)
+                        || m.Address.Country.Contains(querySearch));
+                }
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        personsCollection = personsCollection.OrderByDescending(s => s.Name);
+                        break;
+                    case "surname":
+                        personsCollection = personsCollection.OrderBy(s => s.Surname);
+                        break;
+                    case "surname_desc":
+                        personsCollection = personsCollection.OrderByDescending(s => s.Surname);
+                        break;
+                    case "name":
+                        personsCollection = personsCollection.OrderBy(s => s.Name);
+                        break;
+                    default:
+                        personsCollection = personsCollection.OrderBy(s => s.PersonId);
+                        break;
+                }
 
             personsCollection =  personsCollection
                 .Skip(pagedParameters.PageSize * (pagedParameters.PageNumber - 1))
@@ -89,11 +87,6 @@ namespace Persons.Core.Services
             var personsList = await personsCollection.ToListAsync();
 
             var result = Mapping.Mapper.Map<IEnumerable<PersonsModel>>(personsList);
-            //var beforePagingList = _context.Persons.AsQueryable();
-
-            //var afterPagingList = PagedList<Data.Entities.Persons>.Create(beforePagingList,
-            //    pagedParameters.PageNumber,
-            //    pagedParameters.PageSize);
 
             return result;
         }

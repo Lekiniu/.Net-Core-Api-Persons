@@ -10,7 +10,7 @@ namespace Persons.Data.Helpers
 
         public int PageNumber { get; set; } = 1;
 
-        private int _pageSize = 10;
+        private int _pageSize = 5;
 
         public int PageSize
         {
@@ -24,8 +24,8 @@ namespace Persons.Data.Helpers
             }
         }
 
-        public string SearchQuery { get; set; }
+        public string SearchQuery { get; set; } = "";
 
-        public string SortOrder { get; set; }
+        public string SortOrder { get; set; } = "";
     }
 }

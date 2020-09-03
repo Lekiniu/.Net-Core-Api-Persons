@@ -22,6 +22,10 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
+using System.Reflection;
+using Persons.Api.Resources;
+using System.Threading;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Persons.Api
 {
@@ -37,21 +41,27 @@ namespace Persons.Api
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {       
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.Configure<RequestLocalizationOptions>(Options =>
             {
-                var supportedCultures = new[] 
+                var supportedCultures = new[]
                 {
                     new CultureInfo("en-US"),
-                    new CultureInfo("ka-Ge")
+                    new CultureInfo("ka-GE")
                 };
-                Options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
+                Options.DefaultRequestCulture = new RequestCulture("ka-GE", "ka-GE");
 
                 Options.SupportedCultures = supportedCultures;
 
                 Options.SupportedUICultures = supportedCultures;
+                Options.RequestCultureProviders = new List<IRequestCultureProvider>
+                                        {
+                                            new QueryStringRequestCultureProvider(),
+                                            new CookieRequestCultureProvider(),
+                                        };
+
             });
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -61,12 +71,14 @@ namespace Persons.Api
             });
 
             services.AddMvc()
-                .AddDataAnnotationsLocalization()
                 .AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>())
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            });
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                })
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization(); 
 
             services.AddDbContext<PersonsDbContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:PersonsDb"]));
             services.AddHttpContextAccessor();
@@ -91,14 +103,9 @@ namespace Persons.Api
                 app.UseHsts();
             }
 
-            //var supportedCultures = new[] { "en-US", "ka-Ge" };
-            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
-            //    .AddSupportedCultures(supportedCultures)
-            //    .AddSupportedUICultures(supportedCultures);
-
-            var options = app.ApplicationServices.GetService <IOptions<RequestLocalizationOptions>>();
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
-
+           
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

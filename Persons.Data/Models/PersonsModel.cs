@@ -8,6 +8,7 @@ namespace Persons.Data.Models
 {
    public class PersonsModel
     {
+
         [ScaffoldColumn(false)]
         public int PersonId { get; set; }
  
@@ -19,7 +20,6 @@ namespace Persons.Data.Models
 
         public string SurnameEng { get; set; }
 
-        [Display(Name = "PrivateNumber")]
         public string PrivateNumber { get; set; }
 
         public string Email { get; set; }

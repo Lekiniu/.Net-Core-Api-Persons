@@ -13,6 +13,7 @@ using System.Net;
 using Persons.Data.Models;
 using Persons.Data.Helpers;
 using Microsoft.AspNetCore.Localization;
+using System.Threading;
 
 namespace Persons.Api.Controllers
 {
@@ -27,17 +28,27 @@ namespace Persons.Api.Controllers
         private readonly IFileService _fileService;
         private readonly IRelatedPersonServices _relatedPersonServices;
 
+        private readonly SharedViewLocalizer _localizer;
+
         public PersonsController(IPersonServices personService, LinkGenerator linkGanarator, ILoggerService logger,
-            IFileService fileService, IRelatedPersonServices relatedPersonServices)
+            IFileService fileService, IRelatedPersonServices relatedPersonServices, SharedViewLocalizer localizer)
         {
             _personService = personService;
             _linkGanarator = linkGanarator;
             _logger = logger;
             _fileService = fileService;
             _relatedPersonServices = relatedPersonServices;
+            _localizer = localizer;
+            var test = _localizer["Email"].Value;
         }
 
+        [HttpGet("test")]
+        public string Bla()
+        {
+            return _localizer["Email"].Value;
+        }
 
+        [HttpGet("set-culture")]
         public IActionResult SetCulture(string path, bool ishttps, string lang = "en-US")
         {
             string culture = lang;
@@ -52,7 +63,7 @@ namespace Persons.Api.Controllers
                 var url = ishttps ? @"https://" + path : @"http://" + path;
                 return Redirect(url);
             }
-            return RedirectToAction("GetAllPersonsAsync", "Persons");
+            return Json("test");
         }
 
 
@@ -72,6 +83,7 @@ namespace Persons.Api.Controllers
         {
             var model = await _personService.GetPersonByIdAsync(personId);
             if (model == null) return NotFound();
+            /*var test = nameof(model.PrivateNumber);*//* = _localizer["PrivateNumber"].Value;*/
             return Ok(model);
         }
 
