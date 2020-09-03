@@ -30,7 +30,7 @@ namespace Persons.Core.Services
          }
 
 
-        public async Task<PersonsModel> AddRelatedPersonAsync(int personId, PersonTypeModel personTypeModel, int relativePersonId)
+        public async Task<PersonsModel> AddRelatedPersonAsync(int personId, PersonTypesModel personTypeModel, int relativePersonId)
         {
             var person = await _context.Persons.
                 FirstOrDefaultAsync(e => e.PersonId == personId);
@@ -93,10 +93,10 @@ namespace Persons.Core.Services
             return result.TypeName;
         }
 
-        private async Task SaveRelatedPerson(int personId, PersonTypeModel personTypeModel, int relativePersonId)
+        private async Task SaveRelatedPerson(int personId, PersonTypesModel personTypeModel, int relativePersonId)
         {
 
-            var result = Mapping.Mapper.Map<PersonTypes>(personTypeModel);
+             var result = Mapping.Mapper.Map<PersonTypes>(personTypeModel);
              await _context.PersonTypes.AddAsync(result);
 
             await _context.RelatedPersons.AddAsync(

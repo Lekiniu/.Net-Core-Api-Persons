@@ -8,7 +8,7 @@ namespace Persons.Data.Interfaces
 {
     public interface IRelatedPersonServices
     {
-        Task<PersonsModel> AddRelatedPersonAsync(int personId, PersonTypeModel type, int relativePersonId);
+        Task<PersonsModel> AddRelatedPersonAsync(int personId, PersonTypesModel type, int relativePersonId);
 
 
         bool checkIfRelatedPersonExist(int personId, int relativePersonId);

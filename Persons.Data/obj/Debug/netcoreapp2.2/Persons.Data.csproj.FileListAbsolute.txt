@@ -19,3 +19,4 @@ C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Data\obj\Debug\netco
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.AssemblyInfo.cs
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.dll
 C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.pdb
+C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Data\obj\Debug\netcoreapp2.2\Persons.Data.csprojAssemblyReference.cache

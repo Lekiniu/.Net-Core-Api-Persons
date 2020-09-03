@@ -17,7 +17,7 @@ namespace Persons.Core.Profiles
                 // This line ensures that internal properties are also mapped over.
                 cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
                 //cfg.ForAllMaps((typeMap, mappingExpression) => mappingExpression.MaxDepth(1));
-                cfg.AddProfile<MappingProfile>();
+                cfg.AddProfile<MappingProfiles>();
 
             });
             var mapper = config.CreateMapper();
@@ -26,10 +26,15 @@ namespace Persons.Core.Profiles
 
         public static IMapper Mapper => Lazy.Value;
     }
-    public class MappingProfile : Profile
+    public class MappingProfiles : Profile
     {
-        public MappingProfile()
+        public MappingProfiles()
         {
+             CreateMap<PersonTypes, PersonTypesModel>()
+               .ForMember(dto => dto.TypeName, opt => opt.MapFrom(x => x.TypeName))
+               .MaxDepth(1)
+               .ReverseMap();
+
             CreateMap<Data.Entities.Persons, PersonsModel>()
                 //.ForMember(dto => dto.RelatedPerson, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.RelatedPerson)))
                 // .ForMember(dto => dto.Type, opt => opt.MapFrom(x => x.RelatedPersons.Select(y => y.PersonType.TypeName)))
@@ -65,10 +70,7 @@ namespace Persons.Core.Profiles
             .ForMember(dto => dto.RelatedPerson, x => x.Ignore())
             .ForMember(dto => dto.Person, x => x.Ignore());
 
-            CreateMap<PersonTypes, PersonTypeModel>()
-               .ForMember(dto => dto.TypeName, opt => opt.MapFrom(x => x.TypeName))
-               .MaxDepth(1)
-               .ReverseMap();
+           
         }
 
     }

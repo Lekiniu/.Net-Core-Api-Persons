@@ -185,7 +185,7 @@ namespace Persons.Api.Controllers
         [HttpPost]
         [Route("{personId}/AddRelativePerson/{RelativePersonId}")]
         [ModelStateFilter]
-        public async Task<IActionResult> CreateRelativePersonAsync(int personId, PersonTypeModel personTypeModel, int relativePersonId)
+        public async Task<IActionResult> CreateRelativePersonAsync(int personId, PersonTypesModel personTypeModel, int relativePersonId)
         {
             if (_relatedPersonServices.checkIfRelatedPersonExist(personId, relativePersonId))
             {

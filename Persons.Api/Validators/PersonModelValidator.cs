@@ -115,7 +115,7 @@ namespace Persons.Api.Validators
         }
     }
 
-    public class PersonTypeModelValidator : AbstractValidator<PersonTypeModel>
+    public class PersonTypeModelValidator : AbstractValidator<PersonTypesModel>
     {
         public PersonTypeModelValidator()
         {

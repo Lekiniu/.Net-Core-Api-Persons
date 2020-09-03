@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Persons.Data.Models
 {
-    public class PersonTypeModel
+    public class PersonTypesModel
     {
         [ScaffoldColumn(false)]
         public int PersonTypeId { get; set; }
