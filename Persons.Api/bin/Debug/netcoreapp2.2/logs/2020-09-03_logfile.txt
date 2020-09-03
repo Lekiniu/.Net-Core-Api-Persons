@@ -1,0 +1,54 @@
+2020-09-03 20:32:19.5408 ERROR Something went wrong: AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+PersonTypeModel -> PersonTypes
+Persons.Data.Models.PersonTypeModel -> Persons.Data.Entities.PersonTypes
+   at lambda_method(Closure , PersonTypeModel , PersonTypes , ResolutionContext )
+   at lambda_method(Closure , Object , Object , ResolutionContext )
+   at AutoMapper.Mapper.Map[TDestination](Object source) in C:\projects\automapper\src\AutoMapper\Mapper.cs:line 35
+   at Persons.Core.Services.RelatedPersonsServices.SaveRelatedPerson(Int32 personId, PersonTypeModel personTypeModel, Int32 relativePersonId) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\Services\RelatedPersonsServices.cs:line 99
+   at Persons.Core.Services.RelatedPersonsServices.AddRelatedPersonAsync(Int32 personId, PersonTypeModel personTypeModel, Int32 relativePersonId) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\Services\RelatedPersonsServices.cs:line 38
+   at Persons.Api.Controllers.PersonsController.CreateRelativePersonAsync(Int32 personId, PersonTypeModel personTypeModel, Int32 relativePersonId) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\Controllers\PersonsController.cs:line 192
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Persons.Api.MiddlewareServices.ExceptionMiddleware.InvokeAsync(HttpContext httpContext) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\MiddlewareServices\ExceptionMiddleware.cs:line 27
+2020-09-03 20:32:32.2505 ERROR Something went wrong: AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.
+
+Mapping types:
+PersonTypeModel -> PersonTypes
+Persons.Data.Models.PersonTypeModel -> Persons.Data.Entities.PersonTypes
+   at lambda_method(Closure , PersonTypeModel , PersonTypes , ResolutionContext )
+   at lambda_method(Closure , Object , Object , ResolutionContext )
+   at AutoMapper.Mapper.Map[TDestination](Object source) in C:\projects\automapper\src\AutoMapper\Mapper.cs:line 35
+   at Persons.Core.Services.RelatedPersonsServices.SaveRelatedPerson(Int32 personId, PersonTypeModel personTypeModel, Int32 relativePersonId) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\Services\RelatedPersonsServices.cs:line 99
+   at Persons.Core.Services.RelatedPersonsServices.AddRelatedPersonAsync(Int32 personId, PersonTypeModel personTypeModel, Int32 relativePersonId) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Core\Services\RelatedPersonsServices.cs:line 38
+   at Persons.Api.Controllers.PersonsController.CreateRelativePersonAsync(Int32 personId, PersonTypeModel personTypeModel, Int32 relativePersonId) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\Controllers\PersonsController.cs:line 192
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Persons.Api.MiddlewareServices.ExceptionMiddleware.InvokeAsync(HttpContext httpContext) in C:\Users\Ika\Documents\GitHub\.Net-Core-Api-Persons\Persons.Api\MiddlewareServices\ExceptionMiddleware.cs:line 27

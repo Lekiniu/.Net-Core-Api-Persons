@@ -105,7 +105,8 @@ namespace Persons.Api
 
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
-           
+
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

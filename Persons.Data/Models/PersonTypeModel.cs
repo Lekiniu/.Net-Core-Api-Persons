@@ -10,10 +10,8 @@ namespace Persons.Data.Models
         [ScaffoldColumn(false)]
         public int PersonTypeId { get; set; }
 
-        [MaxLength(15)]
-        [Required]
         public string TypeName { get; set; }
 
-        public virtual ICollection<RelatedPersonsModel> RelatedPersons { get; set; }
+        public virtual IEnumerable<RelatedPersonsModel> RelatedPersons { get; set; }
     }
 }

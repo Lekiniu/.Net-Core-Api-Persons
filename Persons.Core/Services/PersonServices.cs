@@ -137,7 +137,9 @@ namespace Persons.Core.Services
             var result = Mapping.Mapper.Map(person, oldmodel);
             await _context.SaveChangesAsync();
 
-            return Mapping.Mapper.Map<PersonsModel>(result);
+            var personModel = await GetPersonModel(personId);
+
+            return Mapping.Mapper.Map<PersonsModel>(personModel);
         }
 
 

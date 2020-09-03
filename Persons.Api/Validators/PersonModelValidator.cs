@@ -119,10 +119,10 @@ namespace Persons.Api.Validators
     {
         public PersonTypeModelValidator()
         {
-            RuleFor(file => file.TypeName)
+            RuleFor(type => type.TypeName)
                .Cascade(CascadeMode.Stop)
                .NotNull().WithMessage("{PropertyName} is  empty")
-               .MaximumLength(20).WithMessage("Length of {PropertyName} Invalid");
+               .MaximumLength(15).WithMessage("Length of {PropertyName} Invalid");
         }
     }
 }

@@ -107,6 +107,7 @@ namespace Persons.Api.Controllers
 
         [HttpPut]
         [Route("EditPerson/{personId}")]
+        [ModelStateFilter]
         public async Task<ActionResult<PersonsModel>> EditPersonAsync(int personId, PersonsModel person)
         {
             if (_personService.CheckIfOldPersonExit(personId, person))
@@ -125,6 +126,7 @@ namespace Persons.Api.Controllers
 
         [HttpPut]
         [Route("{personId}/EditAddress/{addressId}")]
+        [ModelStateFilter]
         public async Task<ActionResult<PersonsModel>> EditPersonAddressAsync(int personId, AddressesModel address, int addressId)
         {
 
@@ -137,6 +139,7 @@ namespace Persons.Api.Controllers
         [Route("DeletePerson/{personId}")]
         public async Task<IActionResult> DeletePersonAsync(int personId)
         {
+          
             await _personService.DeletePersonAsync(personId);
             return Ok();
         }
@@ -182,11 +185,11 @@ namespace Persons.Api.Controllers
         [HttpPost]
         [Route("{personId}/AddRelativePerson/{RelativePersonId}")]
         [ModelStateFilter]
-        public async Task<IActionResult> CreateRelativePersonAsync(int personId, PersonTypeModel type, int relativePersonId)
+        public async Task<IActionResult> CreateRelativePersonAsync(int personId, PersonTypeModel personTypeModel, int relativePersonId)
         {
             if (_relatedPersonServices.checkIfRelatedPersonExist(personId, relativePersonId))
             {
-                var model = await _relatedPersonServices.AddRelatedPersonAsync(personId, type, relativePersonId);
+                var model = await _relatedPersonServices.AddRelatedPersonAsync(personId, personTypeModel, relativePersonId);
                 var location = _linkGanarator.GetPathByAction("GetPersonByIdAsync", "Persons", new { personId = model.PersonId });
                 return Created(location, model);
             }

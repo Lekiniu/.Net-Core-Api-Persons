@@ -36,7 +36,7 @@ namespace Persons.Core.Profiles
             .MaxDepth(1)
             .ReverseMap()
             .ForPath(x => x.AddressId, x => x.Ignore())
-            //.ForPath(x => x.Address, x => x.Ignore())
+            .ForPath(x => x.Address, x => x.Ignore())
             .ForPath(x => x.PersonId, x => x.Ignore());
 
             CreateMap<Addresses, AddressesModel>()
@@ -64,6 +64,11 @@ namespace Persons.Core.Profiles
             .ForPath(x => x.RelatedPersonId, x => x.Ignore())
             .ForMember(dto => dto.RelatedPerson, x => x.Ignore())
             .ForMember(dto => dto.Person, x => x.Ignore());
+
+            CreateMap<PersonTypes, PersonTypeModel>()
+               .ForMember(dto => dto.TypeName, opt => opt.MapFrom(x => x.TypeName))
+               .MaxDepth(1)
+               .ReverseMap();
         }
 
     }
